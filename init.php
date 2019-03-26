@@ -12,6 +12,9 @@ include ('Weather.php');
 $telagramApi = new TelegramBot();
 $whetherApi = new Weather();
 
+
 $update = $telagramApi->getUpdates();
 
-$telagramApi->sendMessages($update["message"]["chat"]["id"],$update);
+file_put_contents('log.txt',$update);
+
+$telagramApi->sendMessages($update["message"]["chat"]["id"],'text песни');
