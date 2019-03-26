@@ -37,16 +37,9 @@ class TelegramBot
 
     public function getUpdates()
     {
-
-        $response = $this->query('getUpdates',[
-            'offset' => $this->updateId + 1
-        ]);
-
-        if(!empty($response->result)) {
-            $this->updateId = $response->result[count($response->result) - 1]->update_id;
-        }
-
-        return $response->result;
+        $content    = file_get_contents("php://input");
+        $update     = json_decode($content, true);
+        return $update;
     }
     public function sendMessages($chat_id, $text)
     {
