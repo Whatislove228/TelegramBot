@@ -9,6 +9,19 @@ include ('vendor/autoload.php');
 include ('TelegramBot.php');
 include ('Weather.php');
 
-$telagramApi = new TelegramBot();
+$token = "816935888:AAGiIvEYNyid6fTTmLJn5wpnF4ZV3lfhv4k";
+$bot = new \TelegramBot\Api\Client($token);
+// команда для start
+$bot->command('start', function ($message) use ($bot) {
+    $answer = 'Добро пожаловать!';
+    $bot->sendMessage($message->getChat()->getId(), $answer);
+});
 
-$telagramApi->ddd();
+// команда для помощи
+$bot->command('help', function ($message) use ($bot) {
+    $answer = 'Команды:
+/help - вывод справки';
+    $bot->sendMessage($message->getChat()->getId(), $answer);
+});
+
+$bot->run();
