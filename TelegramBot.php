@@ -13,57 +13,22 @@ class TelegramBot
 
     protected  $updateId;
 
-    protected function query($method, $params = [])
-    {
+    public function ddd() {
         $bot = new \TelegramBot\Api\Client($this->token);
-
+// команда для start
         $bot->command('start', function ($message) use ($bot) {
             $answer = 'Добро пожаловать!';
             $bot->sendMessage($message->getChat()->getId(), $answer);
         });
 
+// команда для помощи
+        $bot->command('help', function ($message) use ($bot) {
+            $answer = 'Команды:
+/help - вывод справки';
+            $bot->sendMessage($message->getChat()->getId(), $answer);
+        });
+
         $bot->run();
-
-        $url = 'https://api.telegram.org/bot';
-
-        $url .= $this->token;
-
-        $url .= "/" . $method;
-
-        if (!empty($params)) {
-            $url .= '?' .  http_build_query($params);
-        }
-        $client = new Client([
-            'base_uri' => $url
-        ]);
-        $result = $client->request('GET');
-
-
-        return json_decode($result->getBody());
-
-    }
-
-    public function getUpdates()
-    {
-
-        $response = $this->query('getUpdates',[
-            'offset' => $this->updateId + 1
-        ]);
-
-        if(!empty($response->result)) {
-            $this->updateId = $response->result[count($response->result) - 1]->update_id;
-        }
-
-        return $response->result;
-    }
-    public function sendMessages($chat_id, $text)
-    {
-        $response = $this->query('sendMessage',[
-            'text' => $text,
-            'chat_id' => $chat_id
-        ]);
-
-        return $response;
     }
 
 }
