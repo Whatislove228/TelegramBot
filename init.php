@@ -14,4 +14,4 @@ $whetherApi = new Weather();
 
 $update = $telagramApi->getUpdates();
 
-$telagramApi->sendMessages($update["message"]["chat"]["id"],'text');
+$telagramApi->sendMessages($update["message"]["chat"]["id"],$update);
