@@ -15,6 +15,11 @@ $whetherApi = new Weather();
 
 $update = $telagramApi->getUpdates();
 
-file_put_contents('log.txt',$update);
+ob_start();
+print_r($update);
+$textualRepresentation = ob_get_contents();
+ob_end_clean();
+
+file_put_contents('log.txt', $textualRepresentation);
 
 $telagramApi->sendMessages($update["message"]["chat"]["id"],'text песни');
