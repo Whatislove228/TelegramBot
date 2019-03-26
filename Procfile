@@ -1,1 +1,1 @@
-php init.php
+web: php init.php
