@@ -15,6 +15,13 @@ class TelegramBot
 
     protected function query($method, $params = [])
     {
+        $bot = new \TelegramBot\Api\Client($this->token);
+
+        $bot->command('start', function ($message) use ($bot) {
+            $answer = 'Добро пожаловать!';
+            $bot->sendMessage($message->getChat()->getId(), $answer);
+        });
+
         $url = 'https://api.telegram.org/bot';
 
         $url .= $this->token;
