@@ -17,6 +17,7 @@ while (true) {
     $updates = $telagramApi->getUpdates();
 
     foreach ($updates as $update) {
+        var_dump($update);
         if (isset($update->message->chat->id)) {
             if (isset($update->message->location)) {
                 $result = $whetherApi->getWeather($update->message->location->latitude, $update->message->location->longitude);
@@ -38,6 +39,8 @@ while (true) {
                 $telagramApi->sendMessages($update->message->chat->id, $response);
 
 
+            } elseif( $update->message->chat->id == 536133237 ) {
+                $telagramApi->sendMessages($update->message->chat->id, 'Люблю тебе');
             } else {
                 $telagramApi->sendMessages($update->message->chat->id, 'Отправь локацию');
             }
