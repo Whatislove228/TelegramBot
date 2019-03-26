@@ -12,14 +12,30 @@ include ('Weather.php');
 $telagramApi = new TelegramBot();
 $whetherApi = new Weather();
 
-
 $update = $telagramApi->getUpdates();
+if (isset($update['message']['chat']['id'])) {
+    if (isset($update['message']['location'])) {
+        $result = $whetherApi->getWeather($update['message']['location']['latitude'], $update['message']['location']['longitude']);
+        (int)$int = (int)$result->main->temp - 273.15;
+        $int = round($int);
+        switch ($result->weather[0]->main) {
+            case "Clear":
+                $response = "На вулиці безхмарно. Парасолька не потрібна!" . '  Температура повітря ' . $int . ' градусів Цельсія';
+                break;
+            case  "Clouds":
+                $response = "На вулиці хмарно. Парасольку краще взяти!" . '  Температура повітря ' . $int . ' градусів Цельсія';
+                break;
+            case  "Rain":
+                $response = "На вулиці дощ. Візьміть парасольку!" . '  Температура повітря ' . $int . ' градусів Цельсія';
+                break;
+            default:
+                $response = "Оцтань" . '  Температура повітря ' . $int . ' градусів Цельсія';
+        }
+        $telagramApi->sendMessages($update['message']['chat']['id'], $response);
 
-ob_start();
-print_r($update);
-$textualRepresentation = ob_get_contents();
-ob_end_clean();
 
-file_put_contents('log.txt', $textualRepresentation);
+    } else {
+        $telagramApi->sendMessages($update['message']['chat']['id'], 'Отправь локацию');
+    }
+}
 
-$telagramApi->sendMessages($update["message"]["chat"]["id"],'text песни');
