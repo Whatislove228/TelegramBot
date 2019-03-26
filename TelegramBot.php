@@ -22,6 +22,8 @@ class TelegramBot
             $bot->sendMessage($message->getChat()->getId(), $answer);
         });
 
+        $bot->run();
+
         $url = 'https://api.telegram.org/bot';
 
         $url .= $this->token;
