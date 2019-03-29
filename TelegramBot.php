@@ -6,7 +6,14 @@
  * Time: 11:13 PM
  */
 
-use GuzzleHttp\Client;
+use \React\EventLoop\Factory;
+use \unreal4u\TelegramAPI\HttpClientRequestHandler;
+use \unreal4u\TelegramAPI\Telegram\Methods\GetUpdates;
+use \unreal4u\TelegramAPI\Abstracts\TraversableCustomType;
+use \unreal4u\TelegramAPI\TgLog;
+use \unreal4u\TelegramAPI\Telegram\Methods\SetWebhook;
+use \unreal4u\TelegramAPI\Telegram\Types\Update;
+
 
 class TelegramBot
 {
@@ -17,12 +24,12 @@ class TelegramBot
     protected  $bot_username = 'WeatherUmbrellaBot';
 
     protected  $hook = 'https://weatheumbreallabot.herokuapp.com/hook.php';
-
+    protected  $setHookUrl = 'https://api.telegram.org/bot816935888:AAGiIvEYNyid6fTTmLJn5wpnF4ZV3lfhv4k/setWebhook?url=https://weatheumbreallabot.herokuapp.com/init.php';
     public function getWebHook() {
-        $telegram = new Longman\TelegramBot\Telegram($this->token, $this->bot_username);
 
-        // Handle telegram webhook request
-        return $telegram->handle();
+        $updateData = json_decode(file_get_contents('php://input'), true);
+
+        return new Update($updateData);
     }
 
     protected function query($method, $params = [])
