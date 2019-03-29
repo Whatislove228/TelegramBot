@@ -22,7 +22,7 @@ class TelegramBot
         $telegram = new Longman\TelegramBot\Telegram($this->token, $this->bot_username);
 
         // Handle telegram webhook request
-        $telegram->handle();
+        return $telegram->handle();
     }
 
     protected function query($method, $params = [])
