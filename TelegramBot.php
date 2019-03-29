@@ -14,6 +14,14 @@ class TelegramBot
 
     protected  $updateId;
 
+    protected  $bot_username = 'WeatherUmbrellaBot';
+
+    protected  $hook = 'https://weatheumbreallabot.herokuapp.com/hook.php';
+
+    public function getWebHook() {
+
+    }
+
     protected function query($method, $params = [])
     {
         $url = 'https://api.telegram.org/bot';

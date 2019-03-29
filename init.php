@@ -11,7 +11,6 @@ include ('Weather.php');
 
 $telagramApi = new TelegramBot();
 $whetherApi = new Weather();
-
 $update = $telagramApi->getUpdates();
 if (isset($update['message']['chat']['id'])) {
     if (isset($update['message']['location'])) {
