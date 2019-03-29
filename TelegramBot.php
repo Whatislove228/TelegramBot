@@ -28,6 +28,7 @@ class TelegramBot
     public function getWebHook() {
 
         $updateData = json_decode(file_get_contents('php://input'), true);
+        file_put_contents('log.txt', $updateData);
 
         return new Update($updateData);
     }

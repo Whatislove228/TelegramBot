@@ -16,7 +16,6 @@ $update = $telagramApi->getUpdates();
     <h1>хуй</h1>
 <?
 $aa = $telagramApi->getWebHook();
-file_put_contents('log.txt', $aa);
 
 
 if (isset($update['message']['chat']['id'])) {
