@@ -12,6 +12,10 @@ include ('Weather.php');
 $telagramApi = new TelegramBot();
 $whetherApi = new Weather();
 $update = $telagramApi->getUpdates();
+var_dump($telagramApi->getWebHook());
+?>
+<h1>хуй</h1>
+<?
 if (isset($update['message']['chat']['id'])) {
     if (isset($update['message']['location'])) {
         $result = $whetherApi->getWeather($update['message']['location']['latitude'], $update['message']['location']['longitude']);
