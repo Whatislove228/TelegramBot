@@ -15,8 +15,9 @@ $update = $telagramApi->getUpdates();
 ?>
     <h1>хуй</h1>
 <?
-var_dump($telagramApi->getWebHook());
-var_dump($update);
+$aa = $telagramApi->getWebHook();
+file_put_contents('log.txt', $aa);
+
 
 if (isset($update['message']['chat']['id'])) {
     if (isset($update['message']['location'])) {

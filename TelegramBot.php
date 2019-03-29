@@ -19,7 +19,10 @@ class TelegramBot
     protected  $hook = 'https://weatheumbreallabot.herokuapp.com/hook.php';
 
     public function getWebHook() {
+        $telegram = new Longman\TelegramBot\Telegram($this->token, $this->bot_username);
 
+        // Handle telegram webhook request
+        $telegram->handle();
     }
 
     protected function query($method, $params = [])
