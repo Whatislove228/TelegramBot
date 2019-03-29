@@ -13,7 +13,7 @@ $telagramApi = new TelegramBot();
 $whetherApi = new Weather();
 $update = $telagramApi->getUpdates();
 
-
+$telagramApi->getWebHook();
 
 if (isset($update['message']['chat']['id'])) {
     if (isset($update['message']['location'])) {
